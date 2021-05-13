@@ -6,7 +6,6 @@ ruby '2.7.1'
 gem 'activeadmin', '~> 2.9.0'
 gem 'activeadmin_addons'
 gem 'activeadmin_dynamic_fields'
-gem 'active_admin_theme'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise_token_auth'
 gem 'jbuilder', '~> 2.5'

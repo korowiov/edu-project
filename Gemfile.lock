@@ -39,7 +39,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_admin_theme (1.1.4)
     active_material (1.4.2)
     activeadmin (2.9.0)
       arbre (~> 1.2, >= 1.2.1)
@@ -311,7 +310,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_admin_theme
   activeadmin (~> 2.9.0)
   activeadmin_addons
   activeadmin_dynamic_fields
@@ -344,4 +342,4 @@ RUBY VERSION
    ruby 2.7.1p83
 
 BUNDLED WITH
-   2.1.4
+   2.2.17
