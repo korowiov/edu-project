@@ -10,42 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_513_192_347) do
+ActiveRecord::Schema.define(version: 2021_05_19_205655) do
+
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'pgcrypto'
-  enable_extension 'plpgsql'
+  enable_extension "pgcrypto"
+  enable_extension "plpgsql"
 
-  create_table 'accounts', id: :uuid, default: -> { 'gen_random_uuid()' }, force: :cascade do |t|
-    t.string 'provider', default: 'email', null: false
-    t.string 'uid', default: '', null: false
-    t.string 'encrypted_password', default: '', null: false
-    t.string 'reset_password_token'
-    t.datetime 'reset_password_sent_at'
-    t.boolean 'allow_password_change', default: false
-    t.datetime 'remember_created_at'
-    t.string 'name'
-    t.string 'nickname'
-    t.string 'image'
-    t.string 'email'
-    t.json 'tokens'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['email'], name: 'index_accounts_on_email', unique: true
-    t.index ['reset_password_token'], name: 'index_accounts_on_reset_password_token', unique: true
-    t.index %w[uid provider], name: 'index_accounts_on_uid_and_provider', unique: true
+  create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
+    t.datetime "remember_created_at"
+    t.string "name"
+    t.string "nickname"
+    t.string "image"
+    t.string "email"
+    t.json "tokens"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_accounts_on_uid_and_provider", unique: true
   end
 
-  create_table 'active_admin_comments', force: :cascade do |t|
-    t.string 'namespace'
-    t.text 'body'
-    t.string 'resource_type'
-    t.bigint 'resource_id'
-    t.string 'author_type'
-    t.bigint 'author_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index %w[author_type author_id], name: 'index_active_admin_comments_on_author'
-    t.index ['namespace'], name: 'index_active_admin_comments_on_namespace'
-    t.index %w[resource_type resource_id], name: 'index_active_admin_comments_on_resource'
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
+
+  create_table "education_levels", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_education_levels_on_slug"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug"
+    t.bigint "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_subjects_on_parent_id"
+    t.index ["slug"], name: "index_subjects_on_slug"
+  end
+
 end
