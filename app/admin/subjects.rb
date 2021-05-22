@@ -3,7 +3,7 @@ ActiveAdmin.register Subject do
 
   menu parent: 'Association resources', priority: 1
 
-  includes :parent_subject
+  includes :parent
 
   permit_params :name,
                 :parent_id

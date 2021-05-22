@@ -1,22 +1,27 @@
 class Subject < ApplicationRecord
   include Slugable
 
-  has_many :children_subjects, class_name: 'Subject',
-                               foreign_key: :parent_id
+  has_many :childrens, class_name: 'Subject',
+                       foreign_key: :parent_id
 
-  belongs_to :parent_subject, class_name: 'Subject',
-                              foreign_key: :parent_id,
-                              optional: true
+  belongs_to :parent, class_name: 'Subject',
+                      foreign_key: :parent_id,
+                      optional: true
 
   scope :order_by_slug, -> { order(slug: :asc) }
   scope :roots, -> { where(parent_id: nil) }
-  scope :with_parent_subject, -> { eager_load(:parent_subject) }
+  scope :with_parent, -> { eager_load(:parent) }
+  scope :with_childs, -> { eager_load(:childrens) }
 
   def full_title
     ''.tap do |str|
-      str << "#{parent_subject.title} - " if parent_subject.present?
-      str << title.to_s
+      str << "#{parent.name} - " if parent.present?
+      str << name.to_s
     end
+  end
+
+  def root?
+    parent_id.nil?
   end
 
   def as_json(_options = {})

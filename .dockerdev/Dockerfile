@@ -76,7 +76,8 @@ ENV LANG=C.UTF-8 \
 RUN gem update --system && \
   rm /usr/local/lib/ruby/gems/*/specifications/default/bundler-*.gemspec && \
   gem uninstall bundler && \
-  gem install bundler -v $BUNDLER_VERSION
+  gem install bundler -v $BUNDLER_VERSION && \
+  gem install rubocop
 
 # Create a directory for the app code
 RUN mkdir -p /app
