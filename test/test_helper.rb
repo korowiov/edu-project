@@ -8,7 +8,7 @@ require 'rails/test_help'
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
-  parallelize(workers: :number_of_processors)
+  # parallelize(workers: :number_of_processors)
 
   def json_response
     ActiveSupport::JSON.decode @response.body

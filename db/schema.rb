@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_132506) do
+ActiveRecord::Schema.define(version: 2021_05_22_200801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -65,6 +65,51 @@ ActiveRecord::Schema.define(version: 2021_05_22_132506) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
+
+  create_table "question_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "question_id"
+    t.string "content"
+    t.string "value_type", null: false
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_question_options_on_question_id"
+  end
+
+  create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "questionable_type"
+    t.uuid "questionable_id"
+    t.string "type", null: false
+    t.string "question_type", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_type"], name: "index_questions_on_question_type"
+    t.index ["questionable_type", "questionable_id"], name: "index_questions_on_questionable"
+  end
+
+  create_table "resource_subjects", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.string "subjectable_type"
+    t.uuid "subjectable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["subject_id"], name: "index_resource_subjects_on_subject_id"
+    t.index ["subjectable_type", "subjectable_id"], name: "index_resource_subjects_on_subjectable"
+  end
+
+  create_table "resources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "education_level_id"
+    t.string "type", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.string "state", default: "created", null: false
+    t.datetime "published_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["education_level_id"], name: "index_resources_on_education_level_id"
+    t.index ["state"], name: "index_resources_on_state"
   end
 
   create_table "subjects", force: :cascade do |t|

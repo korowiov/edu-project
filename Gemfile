@@ -2,14 +2,18 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
-
 gem 'activeadmin', '~> 2.9.0'
 gem 'activeadmin_addons'
+gem 'activeadmin-ajax_filter'
 gem 'activeadmin_dynamic_fields'
+gem 'active_admin_theme'
+gem 'active_model_serializers'
+gem 'acts-as-taggable-on', '~> 7.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise_token_auth'
 gem 'jbuilder', '~> 2.5'
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg_search'
 gem 'puma'
 gem 'rails', '~> 6.1.3.2'
 gem 'sass-rails'
