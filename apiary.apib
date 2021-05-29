@@ -1,0 +1,65 @@
+FORMAT: 1A
+HOST: https://eduhaxx.com/
+
+# edu-project
+
+Education application
+
+## Accounts [/api/v1/auth]
+
+### Create a new account [POST]
+
++ Request (application/json)
+
+        {
+            "email": "user@example.com",
+            "password": "TestPa$$1234",
+            "password_confirmation": "TestPa$$1234",
+            "nickname": "user"
+        }
+
++ Response 201 (application/json)
+    
+    + Headers
+
+            access-token: "Ry_z7ghS7oQFtHHXJMRmwg"
+            token-type: "Bearer"
+            client: "JsCnT0h8zHpj0YyCJ-yEiQ"
+            expiry: "1622904271"
+
+    + Body
+
+            {
+                "status": "success",
+                "data": {
+                    "email": "user@example.com",
+                    "uid": "user@example.com",
+                    "id": "af165dc6-e67a-4ee3-82cf-ddb308793656",
+                    "provider": "email"
+                    "nickname": "user"
+                }
+            }
+
+## Subjects [/api/v1/subjects]
+
+### List all subjects [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "name": "Biologia", 
+                "slug": "subject-1", 
+                "childrens": [
+                    {
+                        "name": "Genetyka", 
+                        "slug": "subject-4"
+                    }
+                ]
+            },
+            {
+                "name": "Chemia", 
+                "slug": "subject-2", 
+                "childrens": []
+            }
+        ]
