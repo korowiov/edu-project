@@ -4,13 +4,7 @@ ActiveAdmin.register Quiz do
   permit_params :name,
                 :description,
                 :education_level_id,
-                subject_ids: [],
-                questions_attributes: [
-                  :name,
-                  :content,
-                  :question_type,
-                  question_options_attributes: %i[id content value value_type]
-                ]
+                subject_ids: []
 
   includes :subjects, :education_level
 
@@ -27,6 +21,30 @@ ActiveAdmin.register Quiz do
   member_action :remove, method: :put do
     resource.removed!
     redirect_to admin_quiz_path(resource), notice: 'Removed!'
+  end
+
+  controller do
+    def create
+      action = Quizzes::Create.new(params: permitted_params[:quiz].to_h)
+      res = action.call
+      @quiz = action.resource
+      if res
+        redirect_to resource_path
+      else
+        render 'new'
+      end
+    end
+
+    def update
+      action = Quizzes::Edit.new(params: permitted_params[:quiz].to_h, object: resource)
+      res = action.call
+      @quiz = action.resource
+      if res
+        redirect_to resource_path
+      else
+        render 'edit'
+      end
+    end
   end
 
   index do
@@ -80,7 +98,10 @@ ActiveAdmin.register Quiz do
     f.inputs do
       f.input :name
       f.input :description
-      f.input :education_level, as: :select
+      f.input :education_level, as: :select,
+                                label: 'Education level',
+                                collection: EducationLevel.all,
+                                display_name: :name
       f.input :subject_ids, as: :tags,
                             label: 'Subjects',
                             collection: Subject.order_by_slug,
