@@ -38,6 +38,7 @@ module Patterns
 
     def call
       resource_created?.tap do |result|
+        form.sync
         set_errors! unless result
       end
     end

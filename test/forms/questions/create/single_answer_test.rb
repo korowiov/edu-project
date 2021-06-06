@@ -6,15 +6,16 @@ module FormsTests
       class SingleAnswerTest < BaseTest
         def valid_params
           {
-            content: 'test question',
-            question_type: 'single_answer',
-            question_options_attributes: [
-              {
-                content: 'test option',
-                value_type: 'integer',
-                value: 1
+            'content' => 'test question',
+            'question_type' => 'single_answer',
+            'option_value_type' => 'number',
+            'questionable' => quiz,
+            'question_options_attributes' => {
+              '0' => {
+                'content' => '',
+                'value' => 1
               }
-            ]
+            }
           }
         end
 
