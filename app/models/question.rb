@@ -5,6 +5,12 @@ class Question < ApplicationRecord
     multiple_pick_type: 'multiple_pick'
   }
 
+  enum option_value_type: {
+    boolean: 'boolean',
+    string: 'string',
+    number: 'number'
+  }
+
   has_many :question_options, inverse_of: :question
   belongs_to :questionable, polymorphic: true,
                             dependent: :destroy

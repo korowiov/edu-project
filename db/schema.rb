@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 2021_05_22_200801) do
   create_table "question_options", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "question_id"
     t.string "content"
-    t.string "value_type", null: false
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -80,8 +79,8 @@ ActiveRecord::Schema.define(version: 2021_05_22_200801) do
   create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "questionable_type"
     t.uuid "questionable_id"
-    t.string "type", null: false
     t.string "question_type", null: false
+    t.string "option_value_type", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

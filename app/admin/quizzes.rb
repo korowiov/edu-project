@@ -77,7 +77,7 @@ ActiveAdmin.register Quiz do
         end
         row :state
         tr class: 'action_items' do
-          td link_to('New question', new_admin_quiz_question_path(quiz), class: :button)
+          td link_to('New question', new_admin_quiz_question_path(quiz), class: :button) if quiz.created?
         end
       end
     end
@@ -87,7 +87,7 @@ ActiveAdmin.register Quiz do
         column :id
         column :content
         column 'Link' do |question|
-          link_to 'Show question', admin_question_path(question)
+          link_to 'Show question', admin_quiz_question_path(question)
         end
       end
     end

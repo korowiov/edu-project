@@ -9,13 +9,11 @@ module FormsTests
       end
 
       def subject
-        @subject ||=
-          create(:subject)
+        @subject ||= create(:subject)
       end
 
       def quiz
-        @quiz ||=
-          create(:quiz)
+        @quiz ||= create(:quiz)
       end
     end
   end
