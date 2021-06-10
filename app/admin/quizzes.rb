@@ -20,7 +20,7 @@ ActiveAdmin.register Quiz do
 
   member_action :remove, method: :put do
     resource.removed!
-    redirect_to admin_quiz_path(resource), notice: 'Removed!'
+    redirect_to admin_quizzes_path, notice: 'Removed!'
   end
 
   controller do
@@ -87,7 +87,7 @@ ActiveAdmin.register Quiz do
         column :id
         column :content
         column 'Link' do |question|
-          link_to 'Show question', admin_quiz_question_path(question)
+          link_to 'Show question', admin_quiz_question_path(id: question.id, quiz_id: quiz.id)
         end
       end
     end

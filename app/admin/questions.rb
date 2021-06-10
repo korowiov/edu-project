@@ -9,7 +9,7 @@ ActiveAdmin.register Question do
                 :questionable,
                 question_options_attributes: %i[id content value]
 
-  includes :author, :question_options
+  includes :question_options
 
   controller do
     def create
@@ -24,6 +24,26 @@ ActiveAdmin.register Question do
       else
         flash[:error] = 'Your form is missing or has incomplete fields. Please review your entry below.'
         render action: 'new'
+      end
+    end
+  end
+
+  show do
+    panel 'Question' do
+      attributes_table_for question do
+        row :id
+        row :content
+        row :question_type
+        row :option_value_type
+        row :questionable
+      end
+    end
+
+    panel 'Questions options' do
+      table_for question.question_options do
+        column :id
+        column :content
+        column :value
       end
     end
   end
